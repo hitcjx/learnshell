@@ -1,0 +1,112 @@
+#通用格式：命令+参数1（一般为操作细节）+参数2（一般为目标）
+
+#ls [ ] [路径] //对应list，查看目录内容
+    -a 显示所有文件及目录（. 开头的隐藏文件也会列出）
+    -l 除文件名称外，同时将文件型态（d 表示目录，- 表示文件）、权限、拥有者、文件大小等信息详细列出
+
+#cd [ ]  //用于切换当前工作目录，即进入指定目录
+    回到home目录：直接cd
+    语法：cd [dirName]
+    特殊说明：
+    ❶ ~ 表示用户的 home 目录
+    ❷ . 表示目前所在的目录
+    ❸ . . 表示目前目录位置的上级目录
+    举例：
+    ❶ cd . .      切换到当前目录的上级目录
+    ❷ cd ~      切换到用户的 home 目录
+    ❸ cd /usr/local      切换到 /usr/local 目录
+#pwd //查看当前目录
+
+#cat [-n] fileName  //显示文件内容
+    说明：
+    -n : 由 1 开始对所有输出的行数编号
+    按e继续往下显示，按q结束显示
+
+#more fileName  //分页显示文件内容
+    操作说明：
+    ❶ 回车键：向下滚动一行
+    ❷ 空格键：向下滚动一屏
+    ❸ b : 返回上一屏
+    ❹ q 或 Ctrl + C：退出 more
+
+#tail [-f] fileName  //显示文件末尾的内容
+    说明：
+    -f ：动态读取文件末尾内容并显示，通常用于日志文件的内容输出（按 Ctrl + C 结束）
+    显示末尾倒数 f 行，如果没有f，显示10行
+
+#mkdir [-p] dirName //创建目录
+    说明：
+    -p: 确保目录名称存在，不存在就创建一个，通过此选项，可以实现多层目录同时创建
+    举例：
+    ❶ mkdir weixinyang      
+    在当前目录下，建立一个名为 weixinyang 的子目录
+    ❷ mkdir -p weixinyang/test      
+    在工作目录下的 weixinyang 目录中建立一个名为 test 的子目录，若 weixinyang 目录不存在，则创建一个
+
+#touch fileName //在当前工作目录创建一个名为XXX的文件
+
+#rmdir [-p] dirName //删除空目录
+    说明：
+    -p： 当子目录被删除后使父目录为空目录的话，则一并删除；
+    举例：
+    ❶ rmdir weixinyang      删除名为 weixinyang 的 空目录
+    ❷ rmdir -p weixinyang/test      删除 weixinyang 中 名为 test 的子目录，若 test 目录删除后 weixinyang 变为空目录，则也被删除
+    ❸ rmdir weixinyang*      删除名称以 weixinyang 开始的空目录
+
+#rm [-rf] name //删除文件
+    说明：
+    -r : 将目录及目录中的所有文件（目录）逐一删除，即递归删除；
+    -f ：无需确认，直接删除；
+    举例：
+    ❶ rm -r weixinyang/      删除名为 weixinyang 的目录和目录中的所有文件，删除前需确认
+    ❷ rm -rf weixinyang/      无需确认，直接删除名为 weixinyang 的目录和目录中的所有文件
+    ❸ rm -f hello.txt      无需确认，直接删除 hello.txt 文件
+
+#cp [-r] source（被复制） dest //复制文件和目录
+    说明：
+    -r : 如果复制的是目录需要使用此选项，此时将复制该目录下的所有的子目录和文件；
+    举例：
+    ❶ cp hello.txt weixinyang/      将 hello.txt 复制到 weixinyang 目录中
+    ❷ cp hello.txt ./hi.txt      将 hello.txt 复制到当前目录，并改名为 hi.txt
+    ❸ cp -r weixinyang/ ./weixin/      将 weixinyang 目录及目录下的所有文件复制到 weixin 目录下
+    ❹ cp -r weixinyang/* ./weixin/      将 weixinyang 目录下的所有文件复制到 weixin 目录下
+
+#mv source dest //为文件或目录改名，或将文件或目录移到其他目录中
+    举例：
+    ❶ mv hello.txt hi.txt       将 hello.txt 改名为 hi.txt
+    ❷ mv hi.txt weixinyang/       将文件 hi.txt 移动到 weixinyang 目录中
+    ❸ mv hi.txt weixinyang/hello.txt       将 hi.txt 移动到 weixinyang 目录中，并改名为 hello.txt
+    ❹ mv weixinyang/ weixin/       如果 weixin 目录不存在，将 weixinyang 目录改名为 weixin
+    ❺ mv weixinyang/ weixin/       如果 weixin 目录存在，将 weixinyang 目录移动到 weixin 目录中
+
+#tar [-zcxvf] fileName [files]
+    包文件后缀为 .tar 表示只是完成了打包，并没有压缩
+    包文件后缀为 .tar.gz 表示打包的同时还进行了压缩
+    说明：
+    -z : z 代表的是 gzip, 通过 gzip 命令处理文件，gzip 可以对文件压缩或者解压
+    -c : c 代表的是 create, 即创建新的包文件
+    -x : x 代表的是 extract, 实现从包文件中还原文件
+    -v : v 代表的是 verbose, 显示命令的执行过程
+    -f : f 代表的是 file, 用于指定包文件的名称
+    打包： -cvf   打包并压缩： -zcvf   解包： -xvf   解压并解包： -zxvf   
+
+#code fileName //编辑文本
+
+#find dirName -option fileName  //在指定目录下查找文件
+    语法：find dirName -option fileName
+    举例：
+    ❶ find . -name “*.java”       在当前目录及其子目录下查找 .java 结尾文件
+    ❷ find /weixinyang -name “*.java”       在 weixinyang 目录及其子目录下查找 .java 结尾文件
+
+#grep word fileName //从指定文件中查找指定文本的内容
+    举例：
+    ❶ grep hello HelloWorld.java      查找 HelloWorld.java 文件中出现的 hello 字符串的位置
+    ❷ grep network *.cfg       查找当前目录中所有 .cfg 结尾的文件中包含 network 字符串的位置
+
+#wc [-cmlw] 文件路径
+    -c：统计bytes数量
+    -m：字符数量
+    -l：统计行数
+    -w：统计单词数量
+
+#管道符：|  //将管道符左边命令的结果，作为管道符右边命令的输入
